@@ -1,24 +1,79 @@
-// Import necessary hooks and functions from React.
-import { useContext, useReducer, createContext } from "react";
-import storeReducer, { initialStore } from "../store"  // Import the reducer and the initial state.
+import React, { createContext, useContext, useReducer } from 'react';
 
-// Create a context to hold the global state of the application
-// We will call this global state the "store" to avoid confusion while using local states
-const StoreContext = createContext()
-
-// Define a provider component that encapsulates the store and warps it in a context provider to 
-// broadcast the information throught all the app pages and components.
-export function StoreProvider({ children }) {
-    // Initialize reducer with the initial state.
-    const [store, dispatch] = useReducer(storeReducer, initialStore())
-    // Provide the store and dispatch method to all child components.
-    return <StoreContext.Provider value={{ store, dispatch }}>
-        {children}
-    </StoreContext.Provider>
+export const initialStore = () => {
+    return {
+        message: null,
+        todos: [
+            { id: 1, title: 'Make the bed', done: false },
+            { id: 2, title: 'Do my homework', done: false },
+        ],
+        character: [], 
+        planets: [],   
+        favorites: [], 
+    }
 }
 
-// Custom hook to access the global state and dispatch function.
-export default function useGlobalReducer() {
-    const { dispatch, store } = useContext(StoreContext)
-    return { dispatch, store };
+const globalReducer = (state, action = {}) => {
+    switch (action.type) {
+        case "get_personajes":
+            return {
+                ...state,
+                character: action.payload.personajes
+            };
+        
+        case "get_planets":
+            return {
+                ...state,
+                planets: action.payload.planets
+            };
+
+        case "toggle_favorite":
+            const { uid, name, type } = action.payload;
+
+            const newFavorite = { uid, name, type };
+
+            const isFavorite = state.favorites.some(
+                fav => fav.uid === uid && fav.type === type
+            );
+
+            let updatedFavorites;
+
+            if (isFavorite) {
+                updatedFavorites = state.favorites.filter(
+                    fav => !(fav.uid === uid && fav.type === type)
+                );
+            } else {
+                updatedFavorites = [...state.favorites, newFavorite];
+            }
+
+            return {
+                ...state,
+                favorites: updatedFavorites
+            };
+
+        default:
+            throw Error('Unknown action.');
+    }
 }
+
+const GlobalContext = createContext(null);
+
+const useGlobalReducer = () => {
+    const context = useContext(GlobalContext);
+    if (!context) {
+        throw new Error('useGlobalReducer must be used within a GlobalProvider');
+    }
+    return context;
+};
+
+export const GlobalProvider = ({ children }) => {
+    const [store, dispatch] = useReducer(globalReducer, initialStore());
+
+    return (
+        <GlobalContext.Provider value={{ store, dispatch }}>
+            {children}
+        </GlobalContext.Provider>
+    );
+};
+
+export default useGlobalReducer;
