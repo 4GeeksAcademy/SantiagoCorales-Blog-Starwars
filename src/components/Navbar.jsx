@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
-import useGlobalReducer from '../hooks/useGlobalReducer'; 
+import useGlobalReducer from '../hooks/useGlobalReducer';
+import logoImage from "../assets/img/logo.jpg";
+
 
 export const Navbar = () => {
 
@@ -8,12 +10,12 @@ export const Navbar = () => {
 
 	const removeFavorite = (item) => {
 		dispatch({
-			type: 'toggle_favorite', 
-			payload: { 
-                uid: item.uid,
-                name: item.name,
-                type: item.type 
-            }
+			type: 'toggle_favorite',
+			payload: {
+				uid: item.uid,
+				name: item.name,
+				type: item.type
+			}
 		});
 	};
 
@@ -21,10 +23,15 @@ export const Navbar = () => {
 		<nav className="navbar navbar-light bg-light">
 			<div className="container">
 				<Link to="/">
-					<span className="navbar-brand mb-0 h1">Star Wars App</span>
+					<img
+						src={logoImage}
+						alt="Star Wars Logo"
+						style={{ height: "50px", objectFit: "contain" }}
+					/>
+
 				</Link>
 
-				<div className="ml-auto d-flex"> 
+				<div className="ml-auto d-flex">
 					<div className="dropdown me-3">
 						<button
 							className="btn btn-primary dropdown-toggle"

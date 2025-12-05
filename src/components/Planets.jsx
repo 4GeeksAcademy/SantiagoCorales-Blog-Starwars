@@ -21,15 +21,13 @@ export const Planets = ({ planet }) => {
     };
 
     return (
-        <div className="card shadow-sm h-100" style={{ width: '18rem', flexShrink: 0 }}>
+        <div className="card shadow-sm h-100" style={{ width: '400px', flexShrink: 0 }}>
             <img
                 src={planet.image_url}
                 className="card-img-top"
                 alt={planet.name}
                 style={{
-                    height: '200px',
-                    width: '100%',
-                    objectFit: 'contain'
+                    height: '400px',
                 }}
                 onError={(e) => { e.target.onerror = null; e.target.src = "https://raw.githubusercontent.com/breatheco-de/swapi-images/master/public/images/big-placeholder.jpg"; }}
             />

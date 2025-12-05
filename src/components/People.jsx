@@ -21,16 +21,13 @@ export const People = ({ character }) => {
     };
 
     return (
-        <div className="card shadow-sm h-100" style={{ width: '18rem', flexShrink: 0 }}>
+        <div className="card shadow-sm h-100" style={{ width: '400px', flexShrink: 0 }}>
             <img
                 src={character.image_url}
                 className="card-img-top"
                 alt={character.name}
                 style={{
-                    height: '200px',
-                    width: '100%',
-                    objectFit: 'contain',
-                    display: 'block' 
+                   height: '400px',
                 }}
                 onError={(e) => { e.target.onerror = null; e.target.src = "https://raw.githubusercontent.com/breatheco-de/swapi-images/master/public/images/big-placeholder.jpg"; }}
             />
