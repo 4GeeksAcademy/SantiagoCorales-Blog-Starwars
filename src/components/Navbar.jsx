@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import useGlobalReducer from '../hooks/useGlobalReducer';
 import logoImage from "../assets/img/logo.jpg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 
 export const Navbar = () => {
@@ -52,11 +54,12 @@ export const Navbar = () => {
 
 											<button
 												onClick={() => removeFavorite(item)}
-												className="btn btn-danger btn-sm ms-2"
+												className="btn btn-light btn-sm ms-2"
 												title="Eliminar favorito"
 											>
-												❌
+												<FontAwesomeIcon icon={faTrash} />
 											</button>
+
 										</div>
 									</li>
 								))

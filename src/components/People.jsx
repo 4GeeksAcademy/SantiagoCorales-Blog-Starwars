@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
+
 
 export const People = ({ character }) => {
     const { store, dispatch } = useGlobalReducer();
@@ -27,7 +31,7 @@ export const People = ({ character }) => {
                 className="card-img-top"
                 alt={character.name}
                 style={{
-                   height: '400px',
+                    height: '400px',
                 }}
                 onError={(e) => { e.target.onerror = null; e.target.src = "https://raw.githubusercontent.com/breatheco-de/swapi-images/master/public/images/big-placeholder.jpg"; }}
             />
@@ -48,9 +52,14 @@ export const People = ({ character }) => {
                     <button
                         onClick={handleFavoriteClick}
                         className={isFavorite ? "btn btn-warning" : "btn btn-outline-warning"}
+                        title={isFavorite ? "Quitar de favoritos" : "Agregar a favoritos"}
                     >
-                        {isFavorite ? " Favorito" : " Favorito"}
+                        <FontAwesomeIcon
+                            icon={isFavorite ? faHeartSolid : faHeartRegular}
+                            size="lg"
+                        />
                     </button>
+
                 </div>
             </div>
         </div>

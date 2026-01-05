@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import useGlobalReducer from '../hooks/useGlobalReducer.jsx';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
+
 
 export const Planets = ({ planet }) => {
     const { store, dispatch } = useGlobalReducer();
@@ -47,9 +51,14 @@ export const Planets = ({ planet }) => {
                     <button
                         onClick={handleFavoriteClick}
                         className={isFavorite ? "btn btn-warning" : "btn btn-outline-warning"}
+                        title={isFavorite ? "Quitar de favoritos" : "Agregar a favoritos"}
                     >
-                        {isFavorite ? " Favorito" : " Favorito"}
+                        <FontAwesomeIcon
+                            icon={isFavorite ? faHeartSolid : faHeartRegular}
+                            size="lg"
+                        />
                     </button>
+
                 </div>
             </div>
         </div>
